@@ -5,6 +5,11 @@
 npm install
 ```
 
+### Serves api with json-server
+```
+npm run api
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
