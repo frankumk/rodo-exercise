@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
 
   export default{
     data: () => ({
@@ -36,12 +37,17 @@
         make: '',
         model: '',
         budget: '',
-        year: ''
-      }
+        year: '',
+      },
+      results: []
     }),
     methods: {
-      search(){
-
+      async search(ev){
+        ev.preventDefault()
+        console.log(this.form)
+        const results = await axios.put('/api/Search', this.form )
+        this.results= results.data
+        console.log(results.data)
       }
     }
   }
