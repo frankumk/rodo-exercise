@@ -234,10 +234,10 @@
   export default{
     data: () => ({
       form: {
-        make: '',
-        model: '',
-        budget: '',
-        year: '',
+        make: "",
+        model: "",
+        budget: "",
+        year: "",
       },
       searches: 0,
       results: null
