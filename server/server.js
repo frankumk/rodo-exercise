@@ -33,17 +33,17 @@ app.put('/api/Search', async (req, res, next) => {
       res.send(null)
     }else{
       const vehicleCount = vehicleCounter(results.data)
-      const matchCount = results.data.length
       const priceData = priceCalcs(results.data)
+      const modelCounts = modelCounter(results.data)
 
       //sending the 5 cheapest cars for the customer to view
       res.status(200).send({
         total: {
           vehicles: vehicleCount,
-          subgroup: matchCount
+          subgroup: modelCounts
         },
         priceData: priceData,
-        bestMatches: results.data.slice(0,5)
+        bestMatches: modelCounts.slice(0,5)
       })
     }
   } 

@@ -8,7 +8,24 @@ const vehicleCounter = (matches) => {
 
 //make/model match count
 const modelCounter = (matches) => {
+  let modelIdentity=[];
+  let found;
 
+  //goes through matches to see if the make/model
+  //exists in modelID. If not, pushes it to modelID.
+  //If in modelID, adds vehicle_counts for make/model in modelID
+  matches.forEach(match => {
+    found = modelIdentity.find((el) => {
+      return el.model === match.model;
+    }); 
+    if(!found){
+      modelIdentity.push(match)
+    }else{
+      const index = modelIdentity.indexOf(found)
+      modelIdentity[index].vehicle_count += found.vehicle_count
+    }
+  })
+  return modelIdentity;
 }
 
 //send back min price, max price, median price

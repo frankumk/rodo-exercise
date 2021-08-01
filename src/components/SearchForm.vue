@@ -30,6 +30,7 @@
           <div class="select_field">
             <label>Make</label>
             <select id="makes" v-model="form.make">
+              <!-- I would put these in an object elsewhere given more time -->
               <option value="">All makes</option>
               <optgroup label="Popular makes">
                 <option value="acura">Acura</option>
@@ -172,6 +173,8 @@
         </form>
         </div>
 
+        <h3 v-if="!results && searches">No Results. Try a Different Search.</h3>
+
         <table v-if="results">
           <thead>
             <tr>
@@ -202,21 +205,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="w"><span class="make-sub-grp">Toyota</span> <span class="model-sub-grp">Highlander</span></td>
-              <td>316</td>
-            </tr>
-            <tr>
-              <td><span class="make-sub-grp">Toyota</span> <span class="model-sub-grp">HIGHLANDER 4X4</span></td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td><span class="make-sub-grp">Toyota</span> <span class="model-sub-grp">Hybrid</span></td>
-              <td>779</td>
-            </tr>
-            <tr>
-              <td><span class="make-sub-grp">Toyota</span> <span class="model-sub-grp">Highlander</span></td>
-              <td>794</td>
+            <tr v-for="car in results.total.subgroup">
+              <td class="w"><span class="make-sub-grp">{{ car.make }}</span> <span class="model-sub-grp">{{ car.model }}</span></td>
+              <td>{{ car.vehicle_count }}</td>
             </tr>
 
           </tbody>
@@ -248,6 +239,7 @@
         budget: '',
         year: '',
       },
+      searches: 0,
       results: null
     }),
     methods: {
@@ -255,6 +247,7 @@
         ev.preventDefault()
         const results = await axios.put('/api/Search', this.form )
         this.results= results.data
+        this.searches++
         console.log(this.results)
       }
     }
@@ -294,7 +287,7 @@ body {
     .wrap {
       max-width: 500px;
       margin: 0 auto 60px;
-      box-shadow: 0px 4px 0px hsl(0deg 0% 90%);
+      /* box-shadow: 0px 4px 0px hsl(0deg 0% 90%); */
       background: #fff;
       min-height: 600px;
       border-radius: 10px;
@@ -469,9 +462,15 @@ body {
     .each-match{
       border: solid black 1px;
       width: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .matches{
       display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
 </style>
