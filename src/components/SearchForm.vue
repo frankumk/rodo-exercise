@@ -26,10 +26,11 @@
 
       <div class="search_container">
 
+       <form @submit.prevent="search">
         <div class="search_group">
           <div class="select_field">
             <label>Make</label>
-            <select id="makes">
+            <select id="makes" v-model='form.make'>
               <option value="">All makes</option>
               <optgroup label="Popular makes">
                 <option value="acura">Acura</option>
@@ -122,14 +123,14 @@
 
           <div class="select_field">
             <label>Model</label>
-            <select id="models" name="models[]">
+            <select id="models" name="models[]" v-model="form.model">
               <option value="">All models</option>
             </select>
           </div>
 
           <div class="select_field">
             <label>Year</label>
-            <select id="year" name="year[]">
+            <select id="year" name="year[]" v-model="form.year">
               <option value="">Any</option>
               <option value="">2021</option>
               <option value="">2020</option>
@@ -139,8 +140,8 @@
 
           <div class="select_field">
             <label>Price</label>
-            <select id="make-model-max-price" name="list_price_max">
-              <option value="">No max price</option>
+            <select id="make-model-max-price" name="list_price_max" v-model="form.budget">
+              <option value="">No price</option>
               <option value="2000">$2,000</option>
               <option value="4000">$4,000</option>
               <option value="6000">$6,000</option>
@@ -169,31 +170,36 @@
         </div>
 
         <button class="search_btn">Search</button>
+       </form>
 
-        <table>
+
+
+        <table v-if="results">
           <thead>
             <tr>
               <th>Total Vehicles Matched</th>
-              <th>1899</th>
+              <th>{{ results.total.vehicles }}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="w">Lowest Price</td>
-              <td>7539</td>
+              <td>{{ results.priceData.minP }}</td>
             </tr>
             <tr>
               <td>Median Price</td>
-              <td>19513.5</td>
+              <td>{{ results.priceData.medianP }}</td>
             </tr>
             <tr>
               <td>Highest Price</td>
-              <td>32075</td>
+              <td>{{ results.priceData.maxP }}</td>
             </tr>
           </tbody>
         </table>
 
-        <table>
+        <h3 v-else>No Results. Try a Different Search.</h3>
+
+        <table v-if="results">
           <thead>
             <tr>
               <th colspan="2">Matches by Make and Model </th>
@@ -234,10 +240,10 @@
   export default{
     data: () => ({
       form: {
-        make: '',
-        model: '',
-        budget: '',
-        year: '',
+        make: "",
+        model: "",
+        budget: "",
+        year: "",
       },
       results: []
     }),

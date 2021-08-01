@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors())
 
 
-const { vehicleCounter, priceCalcs } = require("./helper.js");
+const { vehicleCounter, styleCounter, priceCalcs } = require("./helper.js");
 
 const port = process.env.PORT || 3080;
 app.listen(port,()=>console.log(`listening on port: ${port}`))
@@ -33,14 +33,14 @@ app.put('/api/Search', async (req, res, next) => {
       res.send(null)
     }else{
       const vehicleCount = vehicleCounter(results.data)
-      const matchCount = results.data.length
+      const styleCount = styleCounter(results.data)
       const priceData = priceCalcs(results.data)
 
       //sending the 5 cheapest cars for the customer to view
       res.status(200).send({
         total: {
           vehicles: vehicleCount,
-          subgroup: matchCount
+          subgroup: styleCount
         },
         priceData: priceData,
         bestMatches: [

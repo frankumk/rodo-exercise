@@ -6,6 +6,18 @@ const vehicleCounter = (matches) => {
   },0)
 }
 
+//returns matches make/model counts for matches with a naughty loop
+const styleCounter = (matches) => {
+  let arr = []
+  matches.forEach(match => {
+    if(2===2){
+
+    }else{
+      
+    }
+  })
+}
+
 //send back min price, max price, median price
 const priceCalcs = (matches) => {
   if(matches.length===1){
@@ -20,12 +32,13 @@ const priceCalcs = (matches) => {
   return {
     minP: matches[0].price,
     maxP: matches[matches.length-1].price,
-    median: medianP
+    medianP: medianP
   }
 
 }
 
 module.exports = {
   vehicleCounter,
-  priceCalcs
+  priceCalcs,
+  styleCounter
 }
