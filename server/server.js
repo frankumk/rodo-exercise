@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors())
 
 
-const { vehicleCounter, priceCalcs } = require("./helper.js");
+const { vehicleCounter, priceCalcs, modelCounter } = require("./helper.js");
 
 const port = process.env.PORT || 3080;
 app.listen(port,()=>console.log(`listening on port: ${port}`))

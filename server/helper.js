@@ -6,6 +6,11 @@ const vehicleCounter = (matches) => {
   },0)
 }
 
+//make/model match count
+const modelCounter = (matches) => {
+
+}
+
 //send back min price, max price, median price
 const priceCalcs = (matches) => {
   if(matches.length===1){
@@ -20,12 +25,13 @@ const priceCalcs = (matches) => {
   return {
     minP: matches[0].price,
     maxP: matches[matches.length-1].price,
-    median: medianP
+    medianP: medianP
   }
 
 }
 
 module.exports = {
   vehicleCounter,
-  priceCalcs
+  priceCalcs,
+  modelCounter
 }
