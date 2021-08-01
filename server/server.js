@@ -43,9 +43,7 @@ app.put('/api/Search', async (req, res, next) => {
           subgroup: matchCount
         },
         priceData: priceData,
-        bestMatches: [
-          results.data.slice(0,4)
-        ]
+        bestMatches: results.data.slice(0,5)
       })
     }
   } 

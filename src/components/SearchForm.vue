@@ -170,6 +170,8 @@
 
         <button class="search_btn">Search</button>
         </form>
+        </div>
+
         <table v-if="results">
           <thead>
             <tr>
@@ -220,7 +222,14 @@
           </tbody>
         </table>
 
-      </div>
+        
+          <h3 v-if="results">Cars Picked For you</h3>
+          <div v-if="results" class="matches">
+            <div v-for="match in results.bestMatches" class="each-match">
+              <p>{{match.make}}</p>
+              <p>{{match.model}}</p>
+            </div>
+        </div>
 
     </div>
 
@@ -455,6 +464,14 @@ body {
 
     tr:nth-child(odd) {
       background-color: #e8e8e8;
+    }
+
+    .each-match{
+      border: solid black 1px;
+      width: 20%;
+    }
+    .matches{
+      display: flex;
     }
 
 </style>
