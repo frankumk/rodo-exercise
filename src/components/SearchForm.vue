@@ -1,6 +1,6 @@
 <template>
 
-  <form id='car-search' v-on:submit="search">
+  <form id='car-search' @submit.prevent="search">
 
     <div class='form-field'>
       <label for='make'>Make: </label>
