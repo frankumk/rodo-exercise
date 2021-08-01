@@ -25,7 +25,7 @@ app.put('/api/Search', async (req, res, next) => {
       const maxPrice = budget + budget/10
       results = ((await axios.get(`http://localhost:3000/cars?make_like=${req.body.make}&model_like=${req.body.model}&year_like=${req.body.year}&price_gte=${minPrice}&price_lte=${maxPrice}&_sort=price`)))
     }else{
-      //does not take into account budget
+      //does not take into account budget if client did not select a price
       results = ((await axios.get(`http://localhost:3000/cars?make_like=${req.body.make}&model_like=${req.body.model}&year_like=${req.body.year}&_sort=price`)))
     }
 
@@ -61,6 +61,16 @@ app.get('/api/allCars', async (req, res, next) => {
     next(ex);
   }
 });
+
+app.use((req, res, next) => {
+  if (path.extname(req.path).length) {
+    const err = new Error('Not found')
+    err.status = 404
+    next(err)
+  } else {
+    next()
+  }
+})
 
 // error handling endware
 app.use((err, req, res, next) => {

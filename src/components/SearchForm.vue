@@ -30,7 +30,7 @@
           <div class="select_field">
             <label>Make</label>
             <select id="makes" v-model="form.make">
-              <!-- I would put these in an object elsewhere given more time -->
+              <!-- I would put these in an object elsewhere, and replace with a v-for loop-->
               <option value="">All makes</option>
               <optgroup label="Popular makes">
                 <option value="acura">Acura</option>
@@ -141,6 +141,7 @@
           <div class="select_field">
             <label>Price</label>
             <select id="make-model-max-price" name="list_price_max" v-model="form.budget">
+              <!-- Would replace this with a v-for loop and put options in data -->
               <option value="">No max price</option>
               <option value="2000">$2,000</option>
               <option value="4000">$4,000</option>
@@ -217,7 +218,6 @@
           <h3 v-if="results">Cars Picked For you</h3>
           <div v-if="results" class="matches">
             <div v-for="match in results.bestMatches" class="each-match">
-              <p>{{match.make}}</p>
               <p>{{match.model}}</p>
             </div>
         </div>
@@ -248,7 +248,6 @@
         const results = await axios.put('/api/Search', this.form )
         this.results= results.data
         this.searches++
-        console.log(this.results)
       }
     }
   }
@@ -462,10 +461,14 @@ body {
     .each-match{
       border: solid black 1px;
       width: 20%;
+      height: 70px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
+      white-space: wrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .matches{
       display: flex;

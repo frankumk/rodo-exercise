@@ -25,5 +25,7 @@ npm run serve
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Form work is in @src/components/SearchForm.vue
+### API work is in @server/server.js
+
+### Thanks for the opportunity to apply! I look forward to hearing from you.
