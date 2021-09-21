@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors())
 
 
-const { vehicleCounter, priceCalcs, modelCounter } = require("./helper.js");
+const { vehicleCounter, priceCalcs, modelCounter, modelList } = require("./helper.js");
 
 const port = process.env.PORT || 3080;
 app.listen(port,()=>console.log(`listening on port: ${port}`))
@@ -52,9 +52,11 @@ app.put('/api/Search', async (req, res, next) => {
   }
 });
 
-app.get('/api/allCars/', async (req, res, next) => {
+app.put('/api/modelsPerMake', async (req, res, next) => {
   try {
-    res.send((await axios.get('http://localhost:3000/cars')).data);
+    const allCarsWithMake = (await axios.get(`http://localhost:3000/cars?make_like=${req.body.make}`)).data
+    const modelListForMake = modelList(allCarsWithMake)
+    res.send(modelListForMake)
   } 
   catch (ex) {
     next(ex);
@@ -62,9 +64,9 @@ app.get('/api/allCars/', async (req, res, next) => {
 });
 
 //allcars returned as a general starting point. This is not used.
-app.get('/api/allCars/', async (req, res, next) => {
+app.get('/api/allCars', async (req, res, next) => {
   try {
-    res.send((await axios.get('http://localhost:3000/cars')).data);
+    res.send((await axios.get('http://localhost:3000/cars/')).data);
   } 
   catch (ex) {
     next(ex);

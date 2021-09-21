@@ -29,7 +29,7 @@
         <div class="search_group">
           <div class="select_field">
             <label>Make</label>
-            <select id="makes" v-model="form.make">
+            <select id="makes" v-model="form.make" @change="onMakeChange">
               <!-- I would put these in an object elsewhere, and replace with a v-for loop-->
               <option value="">All makes</option>
               <optgroup label="Popular makes">
@@ -124,7 +124,8 @@
           <div class="select_field">
             <label>Model</label>
             <select id="models" name="models[]" v-model="form.model">
-              <option value="">All models</option>
+              <option value="" defaultValue>All Models</option>
+              <option v-for="(model,index) in modelList" :value="model">{{model}}</option>
             </select>
           </div>
 
@@ -239,15 +240,21 @@
         budget: "",
         year: "",
       },
+      modelList: [],
       searches: 0,
       results: null
     }),
     methods: {
       async search(ev){
         ev.preventDefault()
+        console.log(this.form.model)
         const results = await axios.put('/api/Search', this.form )
         this.results= results.data
         this.searches++
+      },
+      async onMakeChange(){
+        this.modelList = (await axios.put('/api/modelsPerMake', { make: this.form.make })).data
+        this.form.model=""
       }
     }
   }

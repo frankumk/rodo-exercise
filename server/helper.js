@@ -47,8 +47,19 @@ const priceCalcs = (matches) => {
 
 }
 
+const modelList = (makeList) => {
+  let models = []
+  makeList.forEach(listing => {
+    if(models.indexOf(listing.model)===-1){
+      models.push(listing.model)
+    }
+  })
+  return models
+}
+
 module.exports = {
   vehicleCounter,
   priceCalcs,
-  modelCounter
+  modelCounter,
+  modelList
 }
