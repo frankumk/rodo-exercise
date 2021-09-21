@@ -52,6 +52,17 @@ app.put('/api/Search', async (req, res, next) => {
   }
 });
 
+app.get('/api/modelsPerMake', async (req, res, next) => {
+  try {
+    const allcars= (await axios.get(`http://localhost:3000/cars`)).data
+    const modelListForMake = modelList(allcars)
+    res.send(modelListForMake)
+  } 
+  catch (ex) {
+    next(ex);
+  }
+});
+
 app.put('/api/modelsPerMake', async (req, res, next) => {
   try {
     const allCarsWithMake = (await axios.get(`http://localhost:3000/cars?make_like=${req.body.make}`)).data

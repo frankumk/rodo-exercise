@@ -240,10 +240,13 @@
         budget: "",
         year: "",
       },
-      modelList: [],
+      modelList: null,
       searches: 0,
       results: null
     }),
+    async created() {
+      this.modelList = (await axios.get('/api/modelsPerMake')).data
+    },
     methods: {
       async search(ev){
         ev.preventDefault()
