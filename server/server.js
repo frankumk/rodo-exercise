@@ -52,8 +52,17 @@ app.put('/api/Search', async (req, res, next) => {
   }
 });
 
+app.get('/api/allCars/', async (req, res, next) => {
+  try {
+    res.send((await axios.get('http://localhost:3000/cars')).data);
+  } 
+  catch (ex) {
+    next(ex);
+  }
+});
+
 //allcars returned as a general starting point. This is not used.
-app.get('/api/allCars', async (req, res, next) => {
+app.get('/api/allCars/', async (req, res, next) => {
   try {
     res.send((await axios.get('http://localhost:3000/cars')).data);
   } 

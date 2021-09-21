@@ -132,9 +132,9 @@
             <label>Year</label>
             <select id="year" name="year[]" v-model="form.year">
               <option value="">Any</option>
-              <option value="">2021</option>
-              <option value="">2020</option>
-              <option value="">2019</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
             </select>
           </div>
 
